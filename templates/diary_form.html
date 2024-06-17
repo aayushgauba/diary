@@ -1,0 +1,98 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Diary Entry</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #495057; /* Main text color */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Full height of viewport */
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            margin-top: 50px;
+        }
+        .form-container:hover {
+            transform: translateY(-5px);
+        }
+        .form-title {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #343a40; /* Darker gray */
+            text-align: center;
+        }
+        .form-button {
+            background-color: #6c757d; /* Dark gray */
+            color: #ffffff;
+            border: none;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            font-size: 1.2rem;
+            padding: 10px 0;
+        }
+        .form-button:hover {
+            background-color: #495057; /* Slightly darker gray on hover */
+        }
+        .footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            bottom: 0;
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+    <!-- Form Container -->
+    <div class="container form-container">
+        <h1 class="form-title">New Diary Entry</h1>
+        <form method="post" action="{% url 'diary_create' %}">
+            {% csrf_token %}
+
+            {{ form | crispy }}
+            <input type="submit" class="btn btn-primary" value="Submit"/>
+
+        </form>
+        <a href="{% url 'diary_list' %}" class="mt-3 d-block text-center">Back to Diary Entries</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 My Diary. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        // Initialize datepicker
+        $(document).ready(function() {
+            $('.datepicker').datepicker({
+                format: 'dd-mm-yyyy',  // Format date as per your Django DateField format
+                autoclose: true,
+                todayHighlight: true,
+            });
+        });
+    </script>
+</body>
+</html>
